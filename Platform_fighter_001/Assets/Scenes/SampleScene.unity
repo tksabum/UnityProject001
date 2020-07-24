@@ -1123,9 +1123,9 @@ GameObject:
   - component: {fileID: 1683580296}
   - component: {fileID: 1683580295}
   - component: {fileID: 1683580294}
-  - component: {fileID: 1683580297}
   - component: {fileID: 1683580293}
-  m_Layer: 0
+  - component: {fileID: 1683580297}
+  m_Layer: 11
   m_Name: EnemyFist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1257,7 @@ SpriteRenderer:
 --- !u!114 &1683580297
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7704763951604428470, guid: 7ae1ab6ed5773024386cd6033f997a2f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683580291}
@@ -1266,7 +1266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9004004a1550e6347b30624c64cc1d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextMove: 0
+  maxHP: 100
+  maxSpeed: 1
+  normalSpeed: 1
+  healthBarFilled: {fileID: 209457735}
 --- !u!1 &1770922622
 GameObject:
   m_ObjectHideFlags: 0
