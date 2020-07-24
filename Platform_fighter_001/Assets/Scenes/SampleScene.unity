@@ -840,6 +840,8 @@ MonoBehaviour:
   minSpeed: 0.5
   jumpPower: 7
   bullet_Normal: {fileID: 3549883025045350999, guid: b29967b9ca66ae04083de750313fb805, type: 3}
+  ROF_Normal: 0.02
+  SOB_Normal: 20
 --- !u!95 &1413293253
 Animator:
   serializedVersion: 3

@@ -18,8 +18,8 @@ public class Player_Move : MonoBehaviour
     // 총알속도 (Speed of Bullet)
     // 임시로 플레이어의 코드에 둠
     // 무기추가시 무기로 옮기자
-    private float ROF_Normal;
-    private float SOB_Normal;
+    public float ROF_Normal; // 연사 속도
+    public float SOB_Normal; // 투사체 속도
 
     private bool isBullet;
 
@@ -30,8 +30,6 @@ public class Player_Move : MonoBehaviour
         animator = GetComponent<Animator>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        ROF_Normal = 1.0f; // 연사 속도
-        SOB_Normal = 20.0f; // 투사체 속도
         isBullet = true;
     }
 
