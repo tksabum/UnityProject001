@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy_Move.cs" />
     <Compile Include="Assets\Scripts\Player_Move.cs" />
+    <Compile Include="Assets\Scripts\Bullet_Normal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
