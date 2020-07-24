@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - testBullet1
+  - testBullet5
+  - testBullet10
+  - Enemy
   layers:
   - Default
   - TransparentFX
