@@ -11,6 +11,6 @@ public class Bullet_Normal : Bullet
 
     private void Update()
     {
-        
+
     }
 }

@@ -963,6 +963,7 @@ GameObject:
   - component: {fileID: 1413293249}
   - component: {fileID: 1413293248}
   - component: {fileID: 1413293252}
+  - component: {fileID: 1413293254}
   - component: {fileID: 1413293251}
   - component: {fileID: 1413293253}
   m_Layer: 10
@@ -1089,9 +1090,7 @@ MonoBehaviour:
   maxSpeed: 5
   minSpeed: 0.5
   jumpPower: 40
-  bullet_Normal: {fileID: 3549883025045350999, guid: b29967b9ca66ae04083de750313fb805, type: 3}
-  ROF_Normal: 0.02
-  SOB_Normal: 20
+  weaponManager: {fileID: 1413293254}
 --- !u!95 &1413293253
 Animator:
   serializedVersion: 3
@@ -1111,6 +1110,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1413293254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413293247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d805eb5a1672a47b7bcf342179308f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet_Normal: {fileID: 3549883025045350999, guid: b29967b9ca66ae04083de750313fb805, type: 3}
+  bullet_Fast: {fileID: 3549883025045350999, guid: 4ed708e39ce69f3468d62c7842eeea82, type: 3}
+  bullet_LargeDamage: {fileID: 3549883025045350999, guid: a4be63a04f2373e40ad151de2a255adb, type: 3}
 --- !u!1 &1683580291
 GameObject:
   m_ObjectHideFlags: 0
