@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        // 마우스 우클릭 (무기 전환)
+        if (Input.GetMouseButtonDown(1))
+        {
+            weaponManager.nextWeapon();
+        }
 
         // 점프
         if (Input.GetButtonDown("Jump") && !animator.GetBool("isJumping"))
@@ -138,7 +143,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.layer == 11)
         {
             OnDamaged(collision.transform.position);
         }
