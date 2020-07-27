@@ -9,7 +9,11 @@ public abstract class Enemy_Normal : Enemy
      * 피격 처리
      */
 
-    private int nextMove;
+    public float detectRange;
+
+    protected int nextMove;
+    protected int headDirc;
+    protected bool stop;
 
     protected bool onHit;
     protected Rigidbody2D rigid;
@@ -25,7 +29,7 @@ public abstract class Enemy_Normal : Enemy
     protected virtual void FixedUpdate()
     {
         // 타격을 받은 상태가 아니라면
-        if (!onHit)
+        if (!onHit && !stop)
         {
             // 이동
             rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
@@ -39,7 +43,7 @@ public abstract class Enemy_Normal : Enemy
 
         if (rayHit.collider == null)
         {
-            nextMove = -nextMove;
+            setNextMove(-nextMove);
             anim.SetInteger("WalkSpeed", nextMove);
             if (nextMove != 0)
             {
@@ -48,10 +52,26 @@ public abstract class Enemy_Normal : Enemy
         }
     }
 
+    protected RaycastHit2D PlayerInRange()
+    {
+        Vector2 PlayerVec = new Vector2(rigid.position.x + 0.5f * headDirc, rigid.position.y);
+
+        Vector3 vDirc;
+
+        if (headDirc > 0)
+            vDirc = Vector3.right;
+        else
+            vDirc = Vector3.left;
+        Debug.DrawRay(PlayerVec, vDirc * detectRange, new Color(1, 0, 0));
+        RaycastHit2D PlayerHit = Physics2D.Raycast(PlayerVec, vDirc, detectRange, LayerMask.GetMask("Player"));
+
+        return PlayerHit;
+    }
+
     protected void Think()
     {
         // 이동방향 결정
-        nextMove = Random.Range(-1, 2);
+        setNextMove(Random.Range(-1, 2));
 
         // 애니메이션 처리
         anim.SetInteger("WalkSpeed", nextMove);
@@ -105,5 +125,12 @@ public abstract class Enemy_Normal : Enemy
         onHit = false;
         spriteRenderer.color = new Color(1, 1, 1, 1);
         anim.SetBool("isDamaged", false);
+    }
+
+    protected void setNextMove(int nm)
+    {
+        nextMove = nm;
+        if (nm != 0)
+            headDirc = nm;
     }
 }

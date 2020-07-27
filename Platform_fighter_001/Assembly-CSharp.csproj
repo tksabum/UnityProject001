@@ -56,14 +56,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Enemy\Enemy_Normal.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Gun.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet_Normal.cs" />
     <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Fist.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Gun.cs" />
-    <Compile Include="Assets\Scripts\Bullet\EnemyBullet_Normal.cs" />
     <Compile Include="Assets\Scripts\WeaponManager.cs" />
+    <Compile Include="Assets\Scripts\Bullet\EnemyBullet_Normal.cs" />
+    <Compile Include="Assets\Scripts\HPObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

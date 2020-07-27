@@ -17,8 +17,8 @@ TagManager:
   - Player_Bullet
   - Player
   - Enemy
-  - 
-  - 
+  - PlayerDamaged
+  - Enemy_Bullet
   - 
   - 
   - 

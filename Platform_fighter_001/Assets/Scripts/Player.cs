@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : HPObject
 {
     public float maxSpeed;
     public float minSpeed;
     public float jumpPower;
+    public float maxHP;
     public WeaponManager weaponManager;
+    public Image healthBarFilled;
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
     Camera mainCamera;
+
+    private float HP;
 
     // 연사속도 (Rate of Fire)
     // 총알속도 (Speed of Bullet)
@@ -29,6 +34,7 @@ public class Player : MonoBehaviour
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
         isBullet = true;
+        HP = maxHP;
     }
 
     private void Update()
@@ -143,16 +149,13 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 11)
-        {
-            OnDamaged(collision.transform.position);
-        }
+        
     }
 
-    private void OnDamaged(Vector2 targetPos)
+    protected override void OnDamaged(Vector2 targetPos, float damage)
     {
         // 레이어 변경
-        gameObject.layer = 11;
+        gameObject.layer = 12;
 
         // 플레이어 흐려짐
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
@@ -165,8 +168,27 @@ public class Player : MonoBehaviour
         // 애니메이션 처리
         animator.SetTrigger("doDamaged");
 
+        // 체력, 체력바
+        HP -= damage;
+        healthBarFilled.fillAmount = HP / maxHP;
+        if (HP < 1)
+            OnDie();
+
         // 무적시간 종료처리
         Invoke("OffDamaged", 2);
+    }
+    public void OnDie()
+    {
+        // Sprite Alpha
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+        // Sprite Flip Y
+        spriteRenderer.flipY = true;
+        // Collider Disable
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        // Die Effect Jump
+        rigid.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
+
+        // 부활, 목숨없으면 겜종료
     }
 
     private void OffDamaged()

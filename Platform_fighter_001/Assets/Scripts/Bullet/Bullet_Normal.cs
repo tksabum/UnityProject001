@@ -6,7 +6,7 @@ public class Bullet_Normal : Bullet
 {
     private void Awake()
     {
-        
+        targetLayer = LAYER_ENEMY;
     }
 
     private void Update()

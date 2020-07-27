@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject bullet_Fast;
     public GameObject bullet_LargeDamage;
     public Text WeaponUI;
-    
+
     private int usingWeapon;
     private GameObject[] weapon;
     private int[] weaponType;
