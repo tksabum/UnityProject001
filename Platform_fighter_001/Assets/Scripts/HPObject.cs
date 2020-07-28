@@ -14,7 +14,6 @@ public class HPObject : MonoBehaviour
     // 이 함수가 호출되면 Enemy 오브젝트의 상태에 따라 적절한 처리를 함
     public void attacked(Vector2 collisionDir, float damage, int damageType)
     {
-        Debug.Log("attacked!!");
         OnDamaged(collisionDir, damage);
     }
 

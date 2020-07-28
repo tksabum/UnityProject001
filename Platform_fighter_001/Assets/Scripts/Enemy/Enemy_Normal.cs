@@ -15,6 +15,7 @@ public abstract class Enemy_Normal : Enemy
     protected int headDirc;
     protected bool stop;
 
+    protected bool isDie;
     protected bool onHit;
     protected Rigidbody2D rigid;
     protected Animator anim;
@@ -28,6 +29,8 @@ public abstract class Enemy_Normal : Enemy
 
     protected virtual void FixedUpdate()
     {
+        if (isDie) return;
+
         // 타격을 받은 상태가 아니라면
         if (!onHit && !stop)
         {
@@ -44,6 +47,7 @@ public abstract class Enemy_Normal : Enemy
         if (rayHit.collider == null)
         {
             setNextMove(-nextMove);
+            changeDirEvent();
             anim.SetInteger("WalkSpeed", nextMove);
             if (nextMove != 0)
             {
@@ -95,6 +99,8 @@ public abstract class Enemy_Normal : Enemy
         // Die Effect Jump
         rigid.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
 
+        isDie = true;
+
         Invoke("DelMonster", 5);
     }
 
@@ -132,5 +138,10 @@ public abstract class Enemy_Normal : Enemy
         nextMove = nm;
         if (nm != 0)
             headDirc = nm;
+    }
+
+    protected virtual void changeDirEvent()
+    {
+        // 비우기
     }
 }

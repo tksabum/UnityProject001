@@ -70,7 +70,33 @@ public class Player : HPObject
                 }
                 else if (weaponType == 1)
                 {
+                    // 총알 확인, 소모
+                    if (weaponManager.useBullet())
+                    {
+                        
+                    }
 
+                    // 사용중인 무기 가져오기
+                    GameObject weapon = weaponManager.getWeapon();
+
+                    // 총알생성위치 지정
+                    weapon.transform.position = transform.position;
+
+                    // 총알발사 방향 계산
+                    Vector3 MousePosition = Input.mousePosition;
+                    MousePosition = mainCamera.ScreenToWorldPoint(MousePosition);
+                    Vector2 direction = MousePosition - transform.position;
+                    direction = direction.normalized;
+
+                    // 총알 생성, 생성된 총알 이동
+                    GameObject bullet = Instantiate(weapon);
+                    float fireDelay = bullet.GetComponent<Bullet>().FireDelay;
+                    float bulletSpeed = bullet.GetComponent<Bullet>().Speed;
+                    Rigidbody2D bullet_rigid = bullet.GetComponent<Rigidbody2D>();
+                    bullet_rigid.velocity = direction * bulletSpeed;
+
+                    isBullet = false;
+                    Invoke("chargeBullet", fireDelay);
                 }
             }
         }
@@ -162,7 +188,6 @@ public class Player : HPObject
 
         // 플레이어 튕겨남
         float dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        Debug.Log(dirc);
         rigid.AddForce(new Vector2(dirc * 1000f, 7), ForceMode2D.Impulse);
 
         // 애니메이션 처리

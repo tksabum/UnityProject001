@@ -17,9 +17,13 @@ public class Enemy_Gun : Enemy_Normal
         spriteRenderer = GetComponent<SpriteRenderer>();
         onHit = false;
         stop = false;
+        isDie = false;
 
+        ////////////////////
+        //Gun 코드
         onShoot = false;
         setNextMove(-1);
+        ////////////////////
 
         Invoke("Think", 5);
     }
@@ -27,6 +31,8 @@ public class Enemy_Gun : Enemy_Normal
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (isDie) return;
 
         // 타격 상태가 아니라면
         if (!onHit)

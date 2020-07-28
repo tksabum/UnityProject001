@@ -19,20 +19,40 @@ public class WeaponManager : MonoBehaviour
     private GameObject[] weapon;
     private int[] weaponType;
     private int NumberOfWeapon;
+    private int[] bullet;
+
+    /*
+     * Weapon type
+     * 
+     * type 0
+     *  사용할 때 총알을 소모하지 않는 기본 총
+     * 
+     * type 1
+     *  기본 총과 동일하지만 총알을 소모하는 총
+     * 
+     * 
+     */
 
     private void Awake()
     {
         NumberOfWeapon = 3; // 총 무기 개수
-        setWeapon(0);
+        
         weaponType = new int[NumberOfWeapon];
         weaponType[0] = 0;
-        weaponType[1] = 0;
-        weaponType[2] = 0;
+        weaponType[1] = 1;
+        weaponType[2] = 1;
 
         weapon = new GameObject[NumberOfWeapon];
         weapon[0] = bullet_Normal;
         weapon[1] = bullet_Fast;
         weapon[2] = bullet_LargeDamage;
+
+        bullet = new int[NumberOfWeapon];
+        bullet[0] = -1;
+        bullet[1] = 0;
+        bullet[2] = 0;
+
+        setWeapon(0); // 무기들의 값 초기화 후 마지막에 둘 것
     }
 
     private void Update()
@@ -52,13 +72,54 @@ public class WeaponManager : MonoBehaviour
 
     public void nextWeapon()
     {
-        setWeapon((usingWeapon + 1) % NumberOfWeapon);
+        int now = usingWeapon;
+        for (int i = now + 1; i < now + NumberOfWeapon + 1; i++)
+        {
+            int next = i % NumberOfWeapon;
+            if (bullet[next] != 0)
+            {
+                setWeapon(next);
+                break;
+            }
+        }
     }
 
     // usingWeapon을 변경하고 UI에 적용
     private void setWeapon(int uw)
     {
         usingWeapon = uw;
-        WeaponUI.text = "장착한 무기: " + usingWeapon;
+        int b = bullet[usingWeapon];
+        WeaponUI.text = "장착한 무기: " + usingWeapon + "\n" + "[" + (b == -1 ? "∞" : "" + b) + "]";
+    }
+
+    public bool useBullet()
+    {
+        bool returnvalue = false;
+
+        // 총알 사용
+        if (bullet[usingWeapon] > 0)
+        {
+            bullet[usingWeapon] -= 1;
+            returnvalue = true;
+        }
+
+        // 총알을 다썼다면 무기변경
+        if (bullet[usingWeapon] == 0)
+        {
+            setWeapon(0);
+        }
+        // 총알을 다 쓰지 않았어도 UI업데이트를 위해 setWeapon 호출
+        else
+        {
+            setWeapon(usingWeapon);
+        }
+
+        return returnvalue;
+    }
+
+    public void addBullet(int _weaponType, int _amount)
+    {
+        bullet[_weaponType] += _amount;
+        setWeapon(usingWeapon); // UI업데이트
     }
 }

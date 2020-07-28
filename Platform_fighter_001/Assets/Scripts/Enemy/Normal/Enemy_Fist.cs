@@ -20,11 +20,15 @@ public class Enemy_Fist : Enemy_Normal
         spriteRenderer = GetComponent<SpriteRenderer>();
         onHit = false;
         stop = false;
+        isDie = false;
 
+        ////////////////////
+        //Fist 코드
         onDash = false;
         onDashing = false;
         setNextMove(-1);
-
+        ////////////////////
+        
         Invoke("Think", 5);
     }
 
@@ -86,5 +90,11 @@ public class Enemy_Fist : Enemy_Normal
 
         // 다시 생각 시작
         Invoke("Think", 2);
+    }
+
+    protected override void changeDirEvent()
+    {
+        rigid.velocity = new Vector2(0, rigid.velocity.y);
+        OffDash();
     }
 }
