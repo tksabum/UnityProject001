@@ -40,7 +40,7 @@ public class Player : HPObject
     private void Update()
     {
         // 마우스 좌클릭 (무기 사용)
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButton(0)) {
             if (isBullet)
             {
                 int weaponType = weaponManager.getWeaponType();
@@ -107,7 +107,7 @@ public class Player : HPObject
         }
 
         // 점프
-        if (Input.GetButtonDown("Jump") && !animator.GetBool("isJumping"))
+        if (Input.GetKeyDown(KeyCode.W) && !animator.GetBool("isJumping"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             animator.SetBool("isJumping", true);

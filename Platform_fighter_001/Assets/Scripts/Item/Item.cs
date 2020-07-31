@@ -21,7 +21,7 @@ public class Item : MonoBehaviour
     protected void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject go = collision.gameObject;
-        if (go.layer == 10)
+        if (go.layer == 10 || go.layer == 12) // Player, PlayerDamaged
         {
             ItemEvent(go);
         }

@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
 
     protected int targetLayer;
 
+    protected const int LAYER_NOTPLAYER = -10;
+
     protected const int LAYER_PLAYER = 10;
     protected const int LAYER_ENEMY = 11;
 
@@ -19,11 +21,17 @@ public class Bullet : MonoBehaviour
         Vector2 collisionDir = transform.position - collision.gameObject.transform.position;
         collisionDir = collisionDir.normalized;
 
-        if (collision.gameObject.layer == targetLayer)
+        if (collision.gameObject.layer == targetLayer || (targetLayer < 0 && collision.gameObject.layer != -targetLayer))
         {
-            collision.gameObject.GetComponent<HPObject>().attacked(collisionDir, damage, damageType);
+            HPObject target = collision.gameObject.GetComponent<HPObject>();
+            attack(target, collisionDir);
         }
 
         Destroy(gameObject); // 총알 삭제
+    }
+
+    protected virtual void attack(HPObject target, Vector2 collisionDir)
+    {
+        target.attacked(collisionDir, damage, damageType);
     }
 }
