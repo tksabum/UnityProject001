@@ -19,7 +19,7 @@ public class Item_Weapon : Item
 
     protected override void ItemEvent(GameObject player)
     {
-        player.GetComponent<Player>().weaponManager.addBullet(weaponType, amount);
+        player.GetComponent<Player>().weaponManager.addBullet(amount);
 
         Destroy(gameObject);
     }

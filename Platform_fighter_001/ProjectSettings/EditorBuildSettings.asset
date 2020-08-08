@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameMenuScences/GameMenuScene.unity
+    path: Assets/Scenes/GameMenuScenes/GameMenuScene.unity
     guid: 479d86c1c3c62c04cb6fd0e65a7dbbac
   - enabled: 1
-    path: Assets/Scenes/GameMenuScences/StageMenuScene.unity
+    path: Assets/Scenes/GameMenuScenes/StageMenuScene.unity
     guid: 9676b794f08c6884f9cc911abb2de6f8
   - enabled: 1
-    path: Assets/Scenes/GameMenuScences/StoreMenuScene.unity
+    path: Assets/Scenes/GameMenuScenes/StoreMenuScene.unity
     guid: 7acc5aaecb4bc884f8d89ce07dad5a38
+  - enabled: 1
+    path: Assets/Scenes/GameMenuScenes/GameResultScene.unity
+    guid: ed0945552761d3b48b68abaa01239154
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 5126a4574ca01204daf1f444cb292ee2
@@ -38,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerScenes/Stage7Scene.unity
     guid: bef229b125834ce4c842b945afbbb323
+  - enabled: 1
+    path: Assets/Scenes/GameMenuScenes/InventoryScene.unity
+    guid: 85e0b0404880f3242985ded82df5df75
   m_configObjects: {}

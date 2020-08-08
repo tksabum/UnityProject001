@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HPObject : MonoBehaviour
 {
+    public float maxHP;
 
     void Update()
     {

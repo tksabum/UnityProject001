@@ -11,15 +11,22 @@ public class Enemy : HPObject
      * 체력, 이동속도
      */
 
-    public float maxHP;
+    public int killPoint;
     public float maxSpeed;
     public float normalSpeed;
     public Image healthBarFilled;
 
     protected float HP;
 
-    private void Update()
+    protected void DelMonster(float delay)
     {
+        GameObject stageManager = GameObject.Find("StageManager");
+        stageManager.GetComponent<StageManager>().EnemyKill(gameObject);
+        Invoke("_DelMonster", delay);
+    }
 
+    private void _DelMonster()
+    {
+        Destroy(gameObject);
     }
 }

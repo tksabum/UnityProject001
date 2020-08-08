@@ -18,10 +18,33 @@ public class WeaponManager : MonoBehaviour
     public Text WeaponUI;
 
     private int usingWeapon;
-    private GameObject[] weapon;
+    private Dictionary<string, GameObject> weapon;
     private int[] weaponType;
     private int NumberOfWeapon;
-    private int[] bullet;
+    private int bullet;
+
+    // 무기 슬롯 관리
+
+    /* 
+     * 1번 - 주먹에서 나가는
+     * 2번 - 어깨에서 나가는
+     * 3번 - 등에 달린 기계총에서 나가는
+     * 4번 - 미사일 1번
+     * 5번 - 미사일 2번
+     * 
+     * 각 슬롯에 보유한 무기 중 원하는 무기를 달아서 게임 시작
+     * 게임 진행 중 슬롯별로 활성화/비활성화 가능
+     * 어떤 슬롯에서 사용하는 총알이 없을 경우 해당 슬롯 비활성화
+     */
+
+    private string[] weaponSlot;    // 무기 종류 저장
+    private bool[] weaponSlotActivated;  // 활성화되어있는 슬롯 표시
+
+    public Vector2[] BulletStartPos;
+    public int NumWeaponSlot;
+    public Toggle[] weaponSlotUI;
+
+    PlatformFighter platformfighter;
 
     /*
      * Weapon type
@@ -31,13 +54,39 @@ public class WeaponManager : MonoBehaviour
      * 
      * type 1
      *  기본 총과 발사 방법이 동일하지만 총알을 소모하는 총
-     * 
-     * 
      */
 
     private void Awake()
     {
         NumberOfWeapon = 5; // 총 무기 개수
+        NumWeaponSlot = 5;  // 무기 슬롯 개수
+
+        platformfighter = PlatformFighter.getPlatformFighter();
+        weaponSlot = platformfighter.getPlayerInfo().WeaponSlots;
+        weaponSlotActivated = new bool[NumWeaponSlot];
+
+        // 슬롯별 총알 생성 위치를 다르게 하기 위함
+        BulletStartPos = new Vector2[5];
+
+        BulletStartPos[0] = new Vector2(0, 0);
+        BulletStartPos[1] = new Vector2(-0.1f, 0.2f);
+        BulletStartPos[2] = new Vector2(-0.1f, 0.4f);
+        BulletStartPos[3] = new Vector2(-0.1f, 0.6f);
+        BulletStartPos[4] = new Vector2(-0.1f, 0.8f);
+
+        for (int i = 0; i < NumberOfWeapon; i++)
+        {
+            if (weaponSlot[i] != null)
+            {
+                weaponSlotActivated[i] = true;
+                weaponSlotUI[i].isOn = true;
+            }
+            else
+            {
+                weaponSlotActivated[i] = false;
+                weaponSlotUI[i].isOn = false;
+            }
+        }
 
         weaponType = new int[NumberOfWeapon];
         weaponType[0] = 0;
@@ -46,21 +95,39 @@ public class WeaponManager : MonoBehaviour
         weaponType[3] = 1;
         weaponType[4] = 1;
 
-        weapon = new GameObject[NumberOfWeapon];
-        weapon[0] = bullet_Normal;
-        weapon[1] = bullet_Fast;
-        weapon[2] = bullet_LargeDamage;
-        weapon[3] = bullet_Explosion;
-        weapon[4] = bullet_Seek;
+        weapon = new Dictionary<string, GameObject>()
+        {
+            {"bullet_Normal",  bullet_Normal },
+            {"bullet_Fast",  bullet_Fast },
+            {"bullet_LargeDamage",  bullet_LargeDamage },
+            {"bullet_Explosion",  bullet_Explosion },
+            {"bullet_Seek",  bullet_Seek }
+        };
 
-        bullet = new int[NumberOfWeapon];
-        bullet[0] = -1;
-        bullet[1] = 0;
-        bullet[2] = 0;
-        bullet[3] = 10;
-        bullet[4] = 10;
+        // 총알 준비
+        bullet = 10000;
 
-        setWeapon(0); // 무기들의 값 초기화 후 마지막에 둘 것
+        UpdateUI(); // 무기들의 값 초기화 후 마지막에 둘 것
+    }
+
+    public string[] getWeaponSlot()
+    {
+        return weaponSlot;
+    }
+
+    public bool[] getWeaponSlotActivated()
+    {
+        return weaponSlotActivated;
+    }
+
+
+    public void setWeaponSlotActivated()
+    {
+        // weaponSlotActivated;
+        for (int i = 0; i < NumberOfWeapon; i++)
+        {
+            weaponSlotActivated[i] = weaponSlotUI[i].isOn;
+        }
     }
 
     private void Update()
@@ -68,66 +135,38 @@ public class WeaponManager : MonoBehaviour
 
     }
 
-    public GameObject getWeapon()
+    public GameObject getWeapon(string weaponName)
     {
-        return weapon[usingWeapon];
+        return weapon[weaponName];
     }
 
-    public int getWeaponType()
-    {
-        return weaponType[usingWeapon];
-    }
 
-    public void nextWeapon()
+    private void UpdateUI()
     {
-        int now = usingWeapon;
-        for (int i = now + 1; i < now + NumberOfWeapon + 1; i++)
+        string UItext = "";
+        for (int i = 0; i < NumberOfWeapon; i++)
         {
-            int next = i % NumberOfWeapon;
-            if (bullet[next] != 0)
+            if (weaponSlotActivated[i])
             {
-                setWeapon(next);
-                break;
+                UItext += "무기슬롯 " + (i+1).ToString() + " 에너지 소모량 :" + getWeapon(weaponSlot[i]) + "\n";
             }
         }
+        WeaponUI.text = UItext;
     }
 
-    // usingWeapon을 변경하고 UI에 적용
-    private void setWeapon(int uw)
+    public bool useBullet(int comsumption)
     {
-        usingWeapon = uw;
-        int b = bullet[usingWeapon];
-        WeaponUI.text = "장착한 무기: " + usingWeapon + "\n" + "[" + (b == -1 ? "∞" : "" + b) + "]";
+        if (bullet >= comsumption)
+        {
+            bullet -= comsumption;
+            return true;
+        }
+        return false;
     }
 
-    public bool useBullet()
+    public void addBullet(int _amount)
     {
-        bool returnvalue = false;
-
-        // 총알 사용
-        if (bullet[usingWeapon] > 0)
-        {
-            bullet[usingWeapon] -= 1;
-            returnvalue = true;
-        }
-
-        // 총알을 다썼다면 무기변경
-        if (bullet[usingWeapon] == 0)
-        {
-            setWeapon(0);
-        }
-        // 총알을 다 쓰지 않았어도 UI업데이트를 위해 setWeapon 호출
-        else
-        {
-            setWeapon(usingWeapon);
-        }
-
-        return returnvalue;
-    }
-
-    public void addBullet(int _weaponType, int _amount)
-    {
-        bullet[_weaponType] += _amount;
-        setWeapon(usingWeapon); // UI업데이트
+        bullet += _amount;
+        UpdateUI();
     }
 }

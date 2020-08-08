@@ -50,7 +50,7 @@ public class Enemy_Fly : Enemy_Normal
         ////////////////////
     }
 
-    protected void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if (isDie) return;
 

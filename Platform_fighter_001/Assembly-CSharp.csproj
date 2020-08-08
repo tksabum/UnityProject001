@@ -59,21 +59,27 @@
     <Compile Include="Assets\Scripts\HPObject.cs" />
     <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Gun.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
-    <Compile Include="Assets\Scripts\GameMenu\GameMenu.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\InventoryScene.cs" />
+    <Compile Include="Assets\Scripts\Bullet\Bullet_Explosion.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\GameMenuManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Fly.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Boss\Enemy_Boss_Stage1.cs" />
     <Compile Include="Assets\Scripts\Item\Item_Weapon.cs" />
-    <Compile Include="Assets\Scripts\GameMenu\StoreMenu.cs" />
+    <Compile Include="Assets\Scripts\Bullet\Bullet_Seek.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\StoreMenuManager.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Enemy_Boss.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet_Normal.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Boss.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Boss_.cs" />
     <Compile Include="Assets\Scripts\Enemy\Normal\Enemy_Fist.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\StageManager.cs" />
+    <Compile Include="Assets\Scripts\PlatformFighter.cs" />
+    <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\GameResultManager.cs" />
     <Compile Include="Assets\Scripts\WeaponManager.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
     <Compile Include="Assets\Scripts\Bullet\EnemyBullet_Normal.cs" />
-    <Compile Include="Assets\Scripts\GameMenu\StageMenu.cs" />
-    <Compile Include="Assets\Scripts\Bullet\Bullet_Explosion.cs" />
-    <Compile Include="Assets\Scripts\Bullet\Bullet_Seek.cs" />
+    <Compile Include="Assets\Scripts\GameMenu\StageMenuManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

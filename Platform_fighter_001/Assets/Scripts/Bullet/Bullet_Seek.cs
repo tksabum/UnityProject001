@@ -44,7 +44,5 @@ public class Bullet_Seek : Bullet
             }
             if (i % 4 == 3) result += " ";
         }
-
-        Debug.Log(result);
     }
 }

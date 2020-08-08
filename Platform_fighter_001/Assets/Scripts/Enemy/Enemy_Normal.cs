@@ -101,12 +101,7 @@ public abstract class Enemy_Normal : Enemy
 
         isDie = true;
 
-        Invoke("DelMonster", 5);
-    }
-
-    protected void DelMonster()
-    {
-        Destroy(gameObject);
+        DelMonster(5.0f);
     }
 
     protected override void OnDamaged(Vector2 collisionDir, float damage)
